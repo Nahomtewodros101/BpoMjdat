@@ -1,0 +1,63 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  email         String    @unique
+  password      String
+  name          String?
+  role          String    @default("user") // 'user' or 'admin'
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model JobOpening {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  title         String
+  description   String
+  location      String
+  department    String
+  salaryRange   String?
+  postedAt      DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  applications  JobApplication[]
+}
+
+model JobApplication {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  jobOpeningId  String    @db.ObjectId
+  jobOpening    JobOpening @relation(fields: [jobOpeningId], references: [id])
+  applicantName String
+  applicantEmail String
+  resumeUrl     String? // URL to uploaded resume (e.g., Vercel Blob URL)
+  coverLetter   String?
+  appliedAt     DateTime  @default(now())
+  status        String    @default("Pending") // e.g., Pending, Reviewed, Interviewed, Hired, Rejected
+}
+
+model Announcement {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  title         String
+  content       String
+  publishedAt   DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model ContactMessage {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  email         String
+  subject       String
+  message       String
+  read          Boolean   @default(false)
+  receivedAt    DateTime  @default(now())
+}
