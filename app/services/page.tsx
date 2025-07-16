@@ -113,7 +113,7 @@ export default function ServicesPage() {
             <CardContent>
               <CardDescription>
                 Maintenance and updates for logistics systems. Data security
-                measures. Automation tools for tracking and notifications.
+                measures. Automation tool for tracking and notifications.
               </CardDescription>
             </CardContent>
           </Card>
@@ -124,7 +124,7 @@ export default function ServicesPage() {
             </CardHeader>
             <CardContent>
               <CardDescription>
-                : Lead generation and digital marketing campaigns. CRM
+                 Lead generation and digital marketing campaigns. CRM
                 management to enhance customer relationships.
               </CardDescription>
             </CardContent>
